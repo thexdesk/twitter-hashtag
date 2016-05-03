@@ -3,10 +3,22 @@ import $ from 'jquery';
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  $('.button').click(function() {
-    const text = $('.input').val();
-    const result = extractHashtags(text);
-    $('.result').text(result);
-  });
+  // initial load
+  performExtraction();
+
+  $('.input')[0].oninput = () => {
+    performExtraction();
+  };
 
 });
+
+function performExtraction() {
+  const text = $('.input').val();
+
+  const result = extractHashtags(text);
+  const resultWithIndices = JSON.stringify(extractHashtagsWithIndices(text), null, '  ');
+
+  $('.result').html(`<strong>Hashtags:</strong> [${result.join(', ')}]`);
+  $('.resultWithIndices')
+    .html(`<strong>Hashtags w/ Indices:</strong> <pre>${resultWithIndices}</pre>`);
+}
