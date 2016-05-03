@@ -1,4 +1,12 @@
+import {extractHashtags, extractHashtagsWithIndices} from './hashtagUtils';
+import $ from 'jquery';
+
 document.addEventListener('DOMContentLoaded', () => {
-  // do your setup here
-  console.log('Initialized app');
+
+  $('.button').click(function() {
+    const text = $('.input').val();
+    const result = extractHashtags(text);
+    $('.result').text(result);
+  });
+
 });
